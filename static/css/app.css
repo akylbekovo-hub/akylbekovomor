@@ -214,3 +214,25 @@ body {
         transform: none;
     }
 }
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 16px;
+}
+
+.profile-avatar-stub {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffb300;
+    color: #fff;
+    font-size: 48px;
+    font-weight: 800;
+}
+
+.profile-events {
+    margin-top: 24px;
+}

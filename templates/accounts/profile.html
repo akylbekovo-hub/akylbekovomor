@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}EventHub | Мой профиль{% endblock %}
+
+{% block content %}
+<section class="page-shell">
+    <div class="container">
+        <div class="page-header">
+            <span class="eyebrow">Profile</span>
+            <h1>Мой профиль</h1>
+        </div>
+        <article class="detail-card">
+            {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" alt="Аватар {{ user.username }}" class="profile-avatar">
+            {% else %}
+                <div class="profile-avatar profile-avatar-stub">{{ user.username|slice:":1"|upper }}</div>
+            {% endif %}
+
+            <h2>{{ user.username }}</h2>
+            <p><strong>Имя:</strong> {{ user.first_name|default:"—" }}</p>
+            <p><strong>Фамилия:</strong> {{ user.last_name|default:"—" }}</p>
+            <p><strong>Email:</strong> {{ user.email|default:"—" }}</p>
+            <p><strong>Город:</strong> {{ profile.city|default:"—" }}</p>
+            <p><strong>Дата рождения:</strong> {% if profile.birth_date %}{{ profile.birth_date|date:"d E Y" }}{% else %}—{% endif %}</p>
+            <p><strong>О себе:</strong> {{ profile.bio|default:"—"|linebreaksbr }}</p>
+            <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d E Y" }}</p>
+
+            <div class="detail-actions">
+                <a href="{% url 'accounts:profile_edit' %}" class="btn amber darken-2">Редактировать профиль</a>
+            </div>
+        </article>
+
+        <article class="detail-card profile-events">
+            <h2>Мои события</h2>
+            {% if events %}
+                <ul>
+                    {% for event in events %}
+                        <li><a href="{% url 'events:event_detail' event.pk %}" class="feature-link">{{ event.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>У вас пока нет событий.</p>
+            {% endif %}
+        </article>
+    </div>
+</section>
+{% endblock %}
